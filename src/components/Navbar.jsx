@@ -11,22 +11,19 @@ const Navbar = (g) => {
         <li>
           <button
             onClick={() => {
-           
-              if ( v=== true) {
+              if (v === true) {
                 b(false);
               } else {
                 b(true);
               }
-           
             }}
           >
             <span className="text-2xl md:hidden">
               <i className="fa-solid fa-bars "></i>
             </span>
-            <span className="text-2xl font-medium hidden md:block">
-              About Us
-            </span>
+           
           </button>
+          <span className="text-2xl font-medium hidden md:block">About Us</span>
         </li>
       </ul>
     </div>
