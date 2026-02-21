@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Logo from "./Logo";
-
+import { Link } from "react-router-dom";
 const Navbar = (g) => {
   let b = g.props;
   let v = g.io;
@@ -21,9 +21,10 @@ const Navbar = (g) => {
             <span className="text-2xl md:hidden">
               <i className="fa-solid fa-bars "></i>
             </span>
-           
           </button>
-          <span className="text-2xl font-medium hidden md:block">About Us</span>
+          <span className="text-2xl font-medium hidden md:block">
+            <Link to="/About">About Us</Link>
+          </span>
         </li>
       </ul>
     </div>

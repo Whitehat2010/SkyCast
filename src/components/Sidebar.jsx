@@ -19,7 +19,7 @@ const Sidebar = (f) => {
           <Link to="/">Home</Link>
         </li>
         <li className="p-3 bg-[#ffffff11] rounded-xl text-xl pl-5 ">
-          <Link to="/About">About</Link>
+          <Link to="/About">About Us</Link>
         </li>
         <li className="p-3 bg-[#ffffff11] rounded-xl text-xl pl-5 ">
           <Link to="/Services">Services</Link>

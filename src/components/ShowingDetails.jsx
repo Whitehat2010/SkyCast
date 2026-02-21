@@ -2,23 +2,24 @@ import { useEffect, useState } from "react";
 import LocationsDetails from "./LocationsDetails";
 import axios from "axios";
 import { use } from "react";
+import LodingScreen from "./LodingScreen";
 
 const ShowingDetails = (a) => {
   const [locationName, setlocationName] = useState("");
   const [tempreatureInC, settempreatureInC] = useState("");
   const [tempreatureInF, settempreatureInF] = useState("");
-  const [windSpeed, setwindSpeed] = useState("");
-  const [presure, setpresure] = useState("");
-  const [humidity, sethumidity] = useState("");
-  const [cloud, setcloud] = useState("");
-  const [heatIndex, setheatIndex] = useState("");
-  const [uvRays, setuvRays] = useState("");
-  const [dew, setdew] = useState("");
-  const [condition, setcondition] = useState("");
-  const [feelsC, setfeelsC] = useState("");
-  const [feelsF, setfeelsF] = useState("");
-  const [windChillInC, setwindChillInC] = useState("");
-  const [windDirection, setwindDirection] = useState("");
+  const [windSpeed, setwindSpeed] = useState("0");
+  const [presure, setpresure] = useState("0");
+  const [humidity, sethumidity] = useState("0");
+  const [cloud, setcloud] = useState("0");
+  const [heatIndex, setheatIndex] = useState("0");
+  const [uvRays, setuvRays] = useState("0");
+  const [dew, setdew] = useState("0");
+  const [condition, setcondition] = useState("clear");
+  const [feelsC, setfeelsC] = useState("0");
+  const [feelsF, setfeelsF] = useState("0");
+  const [windChillInC, setwindChillInC] = useState("0");
+  const [windDirection, setwindDirection] = useState("0");
 
   //! For Loading
   const [isLoading, setisLoading] = useState(false);
@@ -31,7 +32,7 @@ const ShowingDetails = (a) => {
   }
   useEffect(() => {
     inputValueCheck(a.data);
-  }, [a]);
+  }, [a.data]);
 
   async function gettingData(p) {
     try {
@@ -39,23 +40,33 @@ const ShowingDetails = (a) => {
       let response = await axios.get(
         `https://api.weatherapi.com/v1/current.json?key=cd631d19ad2642beb93155744262201&q=${p}`,
       );
-      // setTimeout(() => {
-      //   setisLoading(false);
-      // }, 500);
+     
+       setTimeout(() => {
+        setisLoading(false);
+      }, 500);
 
       console.log(response);
       dataLoading(response);
     } catch (error) {
+      setisLoading(false)
       alert("We Got An Error Please Try Again");
     }
   }
+
+    if (isLoading) {
+      return <LodingScreen />;
+    }
+
+
+        
 
   function dataLoading(response) {
     setlocationName(response.data.location.name.toUpperCase());
     settempreatureInC(Math.floor(response.data.current.temp_c) + "°C");
     settempreatureInF(Math.floor(response.data.current.temp_f) + "°F");
     setwindSpeed(response.data.current.wind_kph + " kph");
-    setpresure(response.data.current.presure);
+    setpresure(response.data.current.pressure_in);
+    sethumidity(response.data.current.humidity + "%");
     setcloud(response.data.current.cloud);
     setheatIndex(response.data.current.heatindex_c);
     setuvRays(response.data.current.uv);
@@ -66,7 +77,7 @@ const ShowingDetails = (a) => {
     setwindChillInC(response.data.current.windchill_c);
     setwindDirection(response.data.current.wind_degree);
   }
-
+  console.log(presure)
   return (
     <>
       <div className="min-h-75 w-[90%] bg-[#adadad6e] rounded-2xl ">
@@ -75,7 +86,7 @@ const ShowingDetails = (a) => {
             <div>
               <ul className="text-[15px]">
                 <li>
-                  <span>Wind Speed: </span>
+                  <span>Wind : </span>
                   <span>{windSpeed}</span>
                 </li>
                 <li>
@@ -87,7 +98,7 @@ const ShowingDetails = (a) => {
                   <span>{humidity}</span>
                 </li>
                 <li>
-                  <span>Cloud</span>
+                  <span>Cloud: </span>
                   <span>{cloud}</span>
                 </li>
 
@@ -100,7 +111,7 @@ const ShowingDetails = (a) => {
                   <span>{uvRays}</span>
                 </li>
                 <li>
-                  <span>Dew:</span>
+                  <span>Dew: </span>
                   <span>{dew}</span>
                 </li>
                 <li>
@@ -119,7 +130,6 @@ const ShowingDetails = (a) => {
                   location={locationName}
                 />
               )}
-              
             </div>
             <div>
               <ul className="leading-loose">

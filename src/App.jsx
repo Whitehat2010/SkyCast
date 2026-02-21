@@ -7,6 +7,7 @@ import { Route, Router, Routes } from "react-router-dom";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Services from "./pages/Services";
+import LodingScreen from "./components/LodingScreen";
 
 const App = () => {
   return (
@@ -17,7 +18,7 @@ const App = () => {
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Services" element={<Services />} />
       </Routes>
-
+       
      
     </div>
   );
